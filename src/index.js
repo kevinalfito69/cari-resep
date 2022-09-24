@@ -19,7 +19,7 @@ clsBtn.addEventListener("click", () => {
     detailModalHtml.classList.add("hidden");
 });
 
-function getData() {
+const getData = () => {
     const searchInput = document
         .getElementById("food-search-input")
         .value.trim();
@@ -46,9 +46,9 @@ function getData() {
         .catch((error) => {
             console.log(error);
         });
-}
+};
 
-function getResep(e) {
+const getResep = (e) => {
     e.preventDefault();
     console.log(e.target.classList.contains("detail-btn"));
     console.log();
@@ -68,10 +68,10 @@ function getResep(e) {
     } else {
         console.log("notwork");
     }
-}
+};
 
 // modal
-function detailModal(makanan) {
+const detailModal = (makanan) => {
     makanan = makanan[0];
     console.log(makanan.strMeal);
     let elementHtml = `
@@ -81,7 +81,4 @@ function detailModal(makanan) {
     detailModalHtml.classList.remove("hidden");
 
     detailResep.innerHTML = elementHtml;
-}
-// detailBtn.addEventListener("click", () => {
-//     detailModal.classList.remove("hidden");
-// });
+};
