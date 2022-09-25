@@ -9,16 +9,6 @@ const detailModalHtml = document.querySelector(".detail-modal");
 const detailResep = document.querySelector(".detail-resep");
 const listMakanan = document.getElementById("list-makanan");
 
-//modal event listener
-listMakanan.addEventListener("click", getResep);
-
-//search event
-searchBtn.addEventListener("click", getData);
-// close event
-clsBtn.addEventListener("click", () => {
-    detailModalHtml.classList.add("hidden");
-});
-
 const getData = () => {
     const searchInput = document
         .getElementById("food-search-input")
@@ -50,30 +40,27 @@ const getData = () => {
 
 const getResep = (e) => {
     e.preventDefault();
-    console.log(e.target.classList.contains("detail-btn"));
-    console.log();
 
     if (e.target.parentElement.classList.contains("detail-btn")) {
         let itemId =
             e.target.parentElement.parentElement.parentElement.parentElement;
-        console.log(itemId.dataset.id);
+
         axios
             .get(
                 `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${itemId.dataset.id}`
             )
-
             .then((response) => {
                 detailModal(response.data.meals);
             });
     } else {
-        console.log("notwork");
+        console.log("Error");
     }
 };
 
 // modal
 const detailModal = (makanan) => {
     makanan = makanan[0];
-    console.log(makanan.strMeal);
+
     let elementHtml = `
     <recipe-detail name="${makanan.strMeal}" category=" ${makanan.strCategory}" country="${makanan.strArea}" instruction="${makanan.strInstructions}" thumbnail="${makanan.strMealThumb}" link="${makanan.strYoutube}" nameLink="${makanan.strMeal}"></recipe-detail>
     `;
@@ -82,3 +69,11 @@ const detailModal = (makanan) => {
 
     detailResep.innerHTML = elementHtml;
 };
+//modal event listener
+listMakanan.addEventListener("click", getResep);
+//search event
+searchBtn.addEventListener("click", getData);
+// close event
+clsBtn.addEventListener("click", () => {
+    detailModalHtml.classList.add("hidden");
+});
